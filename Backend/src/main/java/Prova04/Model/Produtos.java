@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "produtos")
 public class Produtos implements Serializable {
@@ -19,8 +18,8 @@ public class Produtos implements Serializable {
     private String nome;
     private String fornecedor;
     private int quantidade;
-    private float precoCompra;
-    private float precoVenda;
+    private double precoCompra;
+    private double precoVenda;
 
     @ManyToOne
     @JoinColumn(name = "tipoproduto_tipo_id")
@@ -29,6 +28,17 @@ public class Produtos implements Serializable {
     @ManyToOne
     @JoinColumn(name = "estoque_id")
     private Estoque estoque_id;
+
+    public Produtos(Long produtoId, String nome, String fornecedor, int quantidade, double precoCompra, double precoVenda, TipoProduto tipoProduto, Estoque estoque_id){
+        this.produtoId =  produtoId;
+        this.nome = nome;
+        this.fornecedor = fornecedor;
+        this.quantidade = quantidade;
+        this.precoCompra = precoCompra;
+        this.precoVenda = precoVenda;
+        this.tipoproduto = tipoProduto;
+        this.estoque_id = estoque_id;
+    }
 
     public Estoque getEstoque_id() {
         return estoque_id;
@@ -78,19 +88,19 @@ public class Produtos implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public float getPrecoCompra() {
+    public double getPrecoCompra() {
         return precoCompra;
     }
 
-    public void setPrecoCompra(float precoCompra) {
+    public void setPrecoCompra(double precoCompra) {
         this.precoCompra = precoCompra;
     }
 
-    public float getPrecoVenda() {
+    public double getPrecoVenda() {
         return precoVenda;
     }
 
-    public void setPrecoVenda(float precoVenda) {
+    public void setPrecoVenda(double precoVenda) {
         this.precoVenda = precoVenda;
     }
 

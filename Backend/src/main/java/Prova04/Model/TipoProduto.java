@@ -26,6 +26,11 @@ public class TipoProduto implements Serializable {
     @OneToMany(mappedBy = "tipoproduto" , cascade = CascadeType.ALL)
     private List<Produtos> produtos = new ArrayList<>();
 
+    public TipoProduto(Long tipoId, String nome){
+        this.tipoId = tipoId;
+        this.nome = nome;
+    }
+
     public Long getTipoId() {
         return tipoId;
     }

@@ -19,19 +19,24 @@ public class Estoque implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long tipoId;
+    private Long estoqueId;
     private String nome;
 
     @JsonIgnore
     @OneToMany(mappedBy = "estoque_id" , cascade = CascadeType.ALL)
     private List<Produtos> produtos = new ArrayList<>();
 
+    public Estoque(Long id, String nome) {
+        this.estoqueId = id;
+        this.nome = nome;
+    }
+
     public Long getTipoId() {
-        return tipoId;
+        return estoqueId;
     }
 
     public void setTipoId(Long tipoId) {
-        this.tipoId = tipoId;
+        this.estoqueId = tipoId;
     }
 
     public String getNome() {
