@@ -26,13 +26,18 @@ const NavWrapper = styled.div`
             width: 20%;
             background-color: #FF9D30;
 
+            a {
+                width: 40%;
+                padding: 3%;
+            }
+
             button{
                 outline: none;
                 border: 2px solid #0B3B86;
-                padding: 3%;
                 border-radius: 10px;
                 background: transparent;
-                width: 40%;
+                width: 100%;
+                height: 100%;
                 font-size: 1.2rem;
                 font-weight: bold;
                 color: #0B3B86;
@@ -47,8 +52,12 @@ function Navbar() {
             <div className='container'>
                 <h2>Vendinha do RAU</h2>
                 <div className='navigation d-flex align-items-center justify-content-around'>
-                    <button>Home</button>
-                    <button>Estoques</button>
+                    <Link to="/">
+                        <button>Home</button>
+                    </Link>
+                    <Link to="/criar-produto">
+                        <button>Criar Prod.</button>
+                    </Link>
                 </div>
             </div>
         </NavWrapper>
