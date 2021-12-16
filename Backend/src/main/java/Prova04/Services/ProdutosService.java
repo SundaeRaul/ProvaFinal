@@ -2,6 +2,7 @@ package Prova04.Services;
 
 import Prova04.Model.Produtos;
 import Prova04.Repository.ProdutosRepository;
+import Prova04.exceptions.NamelessProductException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,11 @@ public class ProdutosService {
     }
 
     public Produtos CadastraProduto(Produtos produto) {
-        return prep.save(produto);
+        if (produto.getNome().isEmpty()){
+            throw new NamelessProductException("Impossível cadastrar um produto sem nome.");
+        } else{
+            return prep.save(produto);
+        }
     }
 
     public void DeletaProduto(Long produtoId) {
