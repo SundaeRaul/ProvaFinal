@@ -1,4 +1,4 @@
-import react from 'react';
+import react, { useCallback } from 'react';
 import styled from 'styled-components';
 import Navbar from '../Components/Navbar';
 import { useState, useEffect } from 'react';
@@ -74,11 +74,12 @@ function CriaProduto() {
 
     const [precoVenda, setPrecoVenda] = useState();
 
-    const [tipo, setTipo] = useState([]);
+    const [tipo, setTipo] = useState("");
 
-    const [estoque, setEstoque] = useState([]);
+    const [estoque, setEstoque] = useState("");
 
-    function handleSubmit(event) {
+    function handleSubmit(){
+
         const ctt = {
             nome: nome,
             fornecedor: fornecedor,
@@ -86,49 +87,16 @@ function CriaProduto() {
             precoCompra: precoCompra,
             precoVenda: precoVenda,
             tipoProduto: {
-                tipoId: tipo.id,
-                nome: tipo.nome
+                nome: tipo
             },
-            estoque: {
-                estoqueId: estoque.id,
-                noma: estoque.nome
+            estoque_id: {
+                nome: estoque,
             }
         }
 
-        axios.post(`http://localhost:8080/produtos`, ctt)
-        .then(
-            alert("produto criado com sucesso")
-        )
+        api.post('/produtos', ctt)
     }
 
-    useEffect(() => {
-        async function ListaTiposProdutos() {
-            const response1 = await api.get('/tipoproduto')
-            SetListTipos(response1.data);
-            console.log(listTipos);
-        }
-        ListaTiposProdutos();
-    }, [])
-
-    useEffect(() => {
-        async function ListaEstoques() {
-            const response2 = await api.get('/estoque')
-            SetEstoqueList(response2.data);
-            console.log(estoqueList);
-        }
-        ListaEstoques();
-    }, [])
-
-    const listarTipos = 
-        listTipos.map(lt => {
-            return(<option key={lt.tipoId} value={lt.tipoIp}>{lt.nome}</option>)
-        })
-
-    const listarEstoques = 
-        estoqueList.map(el => {
-            return(<option key={el.tipoId} value={el.tipoIp}>{el.nome}</option>)
-        })
-    
 
     return(
         <>
@@ -141,15 +109,9 @@ function CriaProduto() {
                     <input placeholder="Quantidade" name='quantidade' type={'number'} onChange={(e) => setQtt(e.target.value)}/>
                     <input placeholder="Valor de Compra" name='preco Compra' type={'number'} onChange={(e) => setPrecoCompra(e.target.value)}/>
                     <input placeholder="Valor de venda" name='PrecoCompra' type={'number'} onChange={(e) => setPrecoVenda(e.target.value)}/>
-                    <select defaultValue={'DEFAULT'} name='tipo de produto' value={tipo} onChange={(e) => setTipo(e.target.value)}>
-                        <option selected="selected" value="default">Tipo de Produto</option>
-                        {listarTipos}
-                    </select>
-                    <select defaultValue={'DEFAULT'} name='estoque' value={estoque} onChange={(e) => setEstoque(e.target.value)}>
-                        <option selected="selected" value="default">Estoque</option>
-                        {listarEstoques}
-                    </select>
-                    <button type='submit' onClick={() => handleSubmit()}>Criar</button>
+                    <input placeholder="Tipo de produto" name='preco Compra' type={'text'} onChange={(e) => setTipo(e.target.value)}/>
+                    <input placeholder="Estoque" name='PrecoCompra' type={'text'} onChange={(e) => setEstoque(e.target.value)}/>
+                    <button type='submit'>Criar</button>
                 </form>
             </CriaProdutoWrapper>
         </>
